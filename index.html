@@ -37,35 +37,32 @@
   </style>
 </head>
 <body>
-  <header>32호관</header>
+  <header>32호관 (4층)</header>
 
   <div class="container">
-    <!-- 가운데 층 컨트롤러 (이곳에 리스트: select가 중앙에 위치) -->
-    <div class="controls">
+        <div class="controls">
       <button id="prevFloor">◀</button>
       <select id="floorSelect">
         <option value="1">1층</option>
         <option value="2">2층</option>
         <option value="3">3층</option>
-        <option value="4">4층</option>
-      </select>
+        <option value="4" selected>4층</option>       </select>
       <button id="nextFloor">▶</button>
     </div>
 
-    <!-- 도면 이미지 (floorplan_1.png ~ floorplan_4.png 예상) -->
-    
-<img id="floorImage" src="floorplan_1.png" alt="건물 도면" class="floorplan" />
-
-    <script>
+        
+<img id="floorImage" src="floorplan_4.png" alt="건물 도면" class="floorplan" />     <script>
       // 안전하게 요소를 가져오고 없으면 실패하지 않도록 방어 코드 사용
       const floorImage = document.getElementById('floorImage');
       const prevBtn = document.getElementById('prevFloor');
       const nextBtn = document.getElementById('nextFloor');
       const floorSelect = document.getElementById('floorSelect');
 
-      let currentFloor = 1;
       const minFloor = 1;
       const maxFloor = 4;
+      
+      // ⭐ 버그 수정 부분: select의 현재 선택된 값(4층)을 초기값으로 설정
+      let currentFloor = parseInt(floorSelect.value, 10) || 1;
 
       function updateFloorDisplay() {
         // 변경될 때마다 select 값과 이미지가 동기화되도록
@@ -106,8 +103,7 @@
       updateFloorDisplay();
     </script>
 
-    <!-- 기존 정보 박스들 -->
-    <div class="grid">
+        <div class="grid">
       <div class="info-box" id="printerBox">
         <h2>프린터기</h2>
         <p><strong>유무:</strong> 없음</p>
@@ -133,4 +129,3 @@
   </div>
 </body>
 </html>
-
