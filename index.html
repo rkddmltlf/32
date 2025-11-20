@@ -1,131 +1,140 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4호관 정보</title>
-  <style>
-    :root{--bg:#f5f5f5;--card:#ffffff;--accent:#1e3a8a}
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: Inter, Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-      background:var(--bg);
-      color:#111;
-    }
-    header{background:var(--accent);color:#fff;padding:14px;text-align:center;font-weight:700}
-    .container{max-width:1000px;margin:20px auto;padding:16px}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4호관 정보</title>
+  <style>
+    :root{--bg:#f5f5f5;--card:#ffffff;--accent:#1e3a8a}
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      background:var(--bg);
+      color:#111;
+    }
+    header{background:var(--accent);color:#fff;padding:14px;text-align:center;font-weight:700}
+    .container{max-width:1000px;margin:20px auto;padding:16px}
 
-    /* floorplan image */
-    .floorplan{width:100%;height:auto;border-radius:10px;display:block;margin-bottom:18px;border:1px solid rgba(0,0,0,0.06)}
+    /* floorplan image */
+    .floorplan{width:100%;height:auto;border-radius:10px;display:block;margin-bottom:18px;border:1px solid rgba(0,0,0,0.06)}
 
-    /* controls */
-    .controls{display:flex;justify-content:center;align-items:center;gap:12px;margin-bottom:16px}
-    .controls button{padding:6px 12px;border-radius:8px;border:none;background:var(--accent);color:white;font-weight:600;cursor:pointer}
-    .controls select{padding:8px 14px;border-radius:8px;border:1px solid #bbb;font-size:16px;font-weight:600;cursor:pointer}
+    /* controls */
+    .controls{display:flex;justify-content:center;align-items:center;gap:12px;margin-bottom:16px}
+    .controls button{padding:6px 12px;border-radius:8px;border:none;background:var(--accent);color:white;font-weight:600;cursor:pointer}
+    .controls select{padding:8px 14px;border-radius:8px;border:1px solid #bbb;font-size:16px;font-weight:600;cursor:pointer}
 
-    /* info boxes */
-    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-    .info-box{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(16,24,40,0.04);}    
-    .info-box h2{margin:0 0 8px;font-size:16px}
-    .info-box p{margin:4px 0;color:#333;font-size:14px}
-    .info-box small{color:#6b7280}
+    /* info boxes */
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .info-box{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(16,24,40,0.04);}    
+    .info-box h2{margin:0 0 8px;font-size:16px}
+    .info-box p{margin:4px 0;color:#333;font-size:14px}
+    .info-box small{color:#6b7280}
 
-    @media (max-width:800px){
-      .grid{grid-template-columns:1fr}
-    }
-  </style>
+    @media (max-width:800px){
+      .grid{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
-  <header>4호관 (2층)</header>
+  <header>4호관 (2층)</header>
 
-  <div class="container">
-    <div class="controls">
-      <button id="prevFloor">◀</button>
-      <select id="floorSelect">
-        <option value="1">1층</option>
-        <option value="2">2층</option>
-      </select>
-      <button id="nextFloor">▶</button>
-    </div>
+  <div class="container">
+    <div class="controls">
+      <button id="prevFloor">◀</button>
+      <select id="floorSelect">
+        <option value="1">1층</option>
+        <option value="2">2층</option>
+                <option value="3">3층</option>
+        <option value="4">4층</option>
+      </select>
+      <button id="nextFloor">▶</button>
+    </div>
 
-    <img id="floorImage" src="floorplan_1.png" alt="건물 도면" class="floorplan" />
+    <img id="floorImage" src="floorplan_1.png" alt="건물 도면" class="floorplan" />
 
-    <script>
-      // 요소 가져오기
-      const floorImage = document.getElementById('floorImage');
-      const prevBtn = document.getElementById('prevFloor');
-      const nextBtn = document.getElementById('nextFloor');
-      const floorSelect = document.getElementById('floorSelect');
+    <script>
+      // 요소 가져오기
+      const floorImage = document.getElementById('floorImage');
+      const prevBtn = document.getElementById('prevFloor');
+      const nextBtn = document.getElementById('nextFloor');
+      const floorSelect = document.getElementById('floorSelect');
 
-      let currentFloor = 1;
-      const minFloor = 1;
-      const maxFloor = 2; // [수정됨] 최대 층수를 4에서 2로 변경
+      let currentFloor = 1;
+      const minFloor = 1;
+      // 최대 층수를 2에서 4로 변경
+      const maxFloor = 4; 
 
-      function updateFloorDisplay() {
-        // 선택된 값과 이미지 동기화
-        if (floorSelect) floorSelect.value = String(currentFloor);
-        if (floorImage) floorImage.src = 'floorplan_' + currentFloor + '.png';
-      }
+      function updateFloorDisplay() {
+        // 선택된 값과 이미지 동기화
+        if (floorSelect) floorSelect.value = String(currentFloor);
+        if (floorImage) floorImage.src = 'floorplan_' + currentFloor + '.png';
+        
+        // 현재 층수에 따라 버튼 활성화/비활성화 상태 업데이트 (선택 사항)
+        if (prevBtn) prevBtn.disabled = (currentFloor === minFloor);
+        if (nextBtn) nextBtn.disabled = (currentFloor === maxFloor);
+      }
 
-      // 버튼 이벤트 리스너
-      if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-          if (currentFloor > minFloor) {
-            currentFloor--;
-            updateFloorDisplay();
-          }
-        });
-      }
+      // 버튼 이벤트 리스너
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          if (currentFloor > minFloor) {
+            currentFloor--;
+            updateFloorDisplay();
+          }
+        });
+      }
 
-      if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-          if (currentFloor < maxFloor) {
-            currentFloor++;
-            updateFloorDisplay();
-          }
-        });
-      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          if (currentFloor < maxFloor) {
+            currentFloor++;
+            updateFloorDisplay();
+          }
+        });
+      }
 
-      if (floorSelect) {
-        floorSelect.addEventListener('change', () => {
-          const val = parseInt(floorSelect.value, 10);
-          if (!isNaN(val) && val >= minFloor && val <= maxFloor) {
-            currentFloor = val;
-            updateFloorDisplay();
-          }
-        });
-      }
+      if (floorSelect) {
+        floorSelect.addEventListener('change', () => {
+          const val = parseInt(floorSelect.value, 10);
+          if (!isNaN(val) && val >= minFloor && val <= maxFloor) {
+            currentFloor = val;
+            updateFloorDisplay();
+          }
+        });
+      }
 
-      // 초기 실행
-      updateFloorDisplay();
-    </script>
+      // 초기 실행
+      // 현재 층수 초기값을 URL 헤더 내용인 '4호관 (2층)'과 맞추기 위해 2층으로 설정
+      currentFloor = 2;
+      updateFloorDisplay();
+    </script>
 
-    <div class="grid">
-      <div class="info-box" id="printerBox">
-        <h2>프린터기</h2>
-        <p><strong>유무:</strong> 있음</p>
-        <p><strong>위치:</strong> 2층 복도</p>
-        <p><strong>총 개수:</strong> 1대</p>
-      </div>
+    <div class="grid">
+      <div class="info-box" id="printerBox">
+        <h2>프린터기</h2>
+        <p><strong>유무:</strong> 있음</p>
+        <p><strong>위치:</strong> 2층 복도</p>
+        <p><strong>총 개수:</strong> 1대</p>
+      </div>
 
-      <div class="info-box" id="storeBox">
-        <h2>정수기</h2>
-        <p><strong>유무:</strong> 있음</p>
-        <p><strong>위치:</strong> 2층 복도</p>
-        <p><strong>총 개수:</strong> 1개</p>
-        <small></small>
-      </div>
+      <div class="info-box" id="storeBox">
+        <h2>정수기</h2>
+        <p><strong>유무:</strong> 있음</p>
+        <p><strong>위치:</strong> 2층 복도</p>
+        <p><strong>총 개수:</strong> 1개</p>
+        <small></small>
+      </div>
 
-      <div class="info-box" id="vendingBox">
-        <p><strong>현재공사중! 사용불가</strong></p>
-        <h2>자판기</h2>
-        <p><strong>유무:</strong> 있음</p>
-        <p><strong>위치:</strong> 1층 정문</p>
-        <p><strong>총 개수:</strong> 2개</p>
-        
-      </div>
-    </div>
-  </div>
+      <div class="info-box" id="vendingBox">
+        <p><strong>현재공사중! 사용불가</strong></p>
+        <h2>자판기</h2>
+        <p><strong>유무:</strong> 있음</p>
+        <p><strong>위치:</strong> 1층 정문</p>
+        <p><strong>총 개수:</strong> 2개</p>
+        
+      </div>
+    </div>
+  </div>
 </body>
 </html>
